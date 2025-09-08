@@ -1,0 +1,36 @@
+name: Discord Trending
+
+on:
+  schedule:
+    - cron: "0 19 * * *" # JST 04:00 daily
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Do not mutate channels; only log actions"
+        required: false
+        default: "true"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund | cat
+
+      - name: Run trending script
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+          DISCORD_CATEGORY_PERSONAL_ID: ${{ secrets.DISCORD_CATEGORY_PERSONAL_ID }}
+          DISCORD_CATEGORY_TRENDING_ID: ${{ secrets.DISCORD_CATEGORY_TRENDING_ID }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: npm run trending | cat
+

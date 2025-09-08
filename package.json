@@ -1,0 +1,17 @@
+{
+  "name": "discord-trending-workflow",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "trending": "node scripts/discord-trending.js"
+  },
+  "dependencies": {
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
+    "discord.js": "^14.16.3"
+  }
+}
