@@ -13,6 +13,9 @@ on:
 jobs:
   run:
     runs-on: ubuntu-latest
+    env:
+      # Safety default so scheduled runs do not mutate channels
+      DRY_RUN_DEFAULT: "true"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -31,6 +34,7 @@ jobs:
           DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
           DISCORD_CATEGORY_PERSONAL_ID: ${{ secrets.DISCORD_CATEGORY_PERSONAL_ID }}
           DISCORD_CATEGORY_TRENDING_ID: ${{ secrets.DISCORD_CATEGORY_TRENDING_ID }}
-          DRY_RUN: ${{ inputs.dry_run }}
+          # If workflow_dispatch provides an input, use it; otherwise default to safe "true"
+          DRY_RUN: ${{ inputs.dry_run || env.DRY_RUN_DEFAULT }}
         run: npm run trending | cat
 
