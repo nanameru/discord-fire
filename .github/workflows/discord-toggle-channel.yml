@@ -1,0 +1,40 @@
+name: Discord Toggle Channel
+
+on:
+  workflow_dispatch:
+    inputs:
+      channel_id:
+        description: "Target channel ID to toggle"
+        required: true
+        default: ""
+      dry_run:
+        description: "Do not mutate; only log actions"
+        required: false
+        default: "true"
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund | cat
+
+      - name: Toggle channel
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_GUILD_ID: ${{ secrets.DISCORD_GUILD_ID }}
+          DISCORD_CATEGORY_PERSONAL_ID: ${{ secrets.DISCORD_CATEGORY_PERSONAL_ID }}
+          DISCORD_CATEGORY_TRENDING_ID: ${{ secrets.DISCORD_CATEGORY_TRENDING_ID }}
+          CHANNEL_ID: ${{ inputs.channel_id }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: npm run toggle-channel | cat
+
+

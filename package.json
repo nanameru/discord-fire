@@ -7,7 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "trending": "node scripts/discord-trending.js"
+    "trending": "node scripts/discord-trending.js",
+    "toggle-channel": "node scripts/discord-toggle-channel.js"
   },
   "dependencies": {
     "date-fns": "^2.30.0",
