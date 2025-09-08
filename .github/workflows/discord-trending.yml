@@ -14,8 +14,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     env:
-      # Safety default so scheduled runs do not mutate channels
-      DRY_RUN_DEFAULT: "true"
+      # Default for scheduled runs; set to false to apply changes by default
+      DRY_RUN_DEFAULT: "false"
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
