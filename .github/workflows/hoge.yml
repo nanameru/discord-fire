@@ -23,25 +23,3 @@ jobs:
         if: ${{ github.event_name == 'workflow_dispatch' && inputs.message == 'こんにちは！' }}
         run: |
           echo "こんにちは！"
-
-      - name: Clone discord-fire repository
-        run: |
-          git clone https://github.com/nanameru/discord-fire.git external/discord-fire
-          echo "Cloned discord-fire into external/discord-fire"
-
-      - name: List cloned contents
-        run: |
-          ls -la
-          ls -la external/discord-fire || true
-
-      - name: Prepare integration artifact
-        run: |
-          mkdir -p artifacts
-          echo "Integration checked at $(date -u +"%Y-%m-%dT%H:%M:%SZ")" > artifacts/discord-fire-integration.txt
-          echo "Repo URL: https://github.com/nanameru/discord-fire" >> artifacts/discord-fire-integration.txt
-
-      - name: Upload integration artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: discord-fire-integration
-          path: artifacts/discord-fire-integration.txt
