@@ -1,0 +1,22 @@
+version: 1
+project:
+  name: "discord-fire"
+  test_command: "npm run test:workflows"
+  repo: "nanameru/discord-fire"
+
+source_roots:
+  - .github/workflows
+  - scripts
+
+cases:
+  - id: TC-001
+    title: "月次の維持記録で定期Workflowの無活動停止を防止できる"
+    feature: "定期Workflow無活動停止防止"
+    scenario: "公開リポジトリで月次の維持記録を更新する"
+    status: done
+    priority: high
+    type: integration
+    source: [.github/workflows/keepalive.yml, .github/workflows/hoge.yml, .github/keepalive]
+    test_file: "test/workflows.test.js"
+    issues: [2]
+    notes: "npm testでWorkflow構文、月次cron、最小権限、維持記録以外を変更しないことを検証済み。"
