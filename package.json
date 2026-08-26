@@ -7,6 +7,8 @@
     "node": ">=20"
   },
   "scripts": {
+    "test": "node --test",
+    "test:workflows": "node --test test/workflows.test.js",
     "trending": "node scripts/discord-trending.js",
     "toggle-channel": "node scripts/discord-toggle-channel.js"
   },
@@ -14,5 +16,8 @@
     "date-fns": "^2.30.0",
     "date-fns-tz": "^2.0.0",
     "discord.js": "^14.16.3"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.0"
   }
 }
